@@ -34,8 +34,8 @@ polly_service = polly_service.PollyService()
 #####
 
 # Endpoint to get the text response from the CentBot
-@app.route('/chat/centbot/{chat_text}', methods=['POST'], cors=True)
-def chatbotResponse(chat_text):
+@app.route('/chat/centbot', methods=['POST'], cors=True)
+def chatbotResponse():
     logging.info("Hello: %s", app.current_request.method)
     if app.current_request.method == 'POST':
         the_question = app.current_request.json_body['question']

@@ -7,6 +7,10 @@ import numpy as np
 
 from keras.models import load_model
 
+# download the punkt and wordnet package
+nltk.download('punkt')
+nltk.download('wordnet')
+
 # define the files path as the location of current file
 file_path = os.path.dirname(os.path.realpath(__file__))
 

@@ -1,6 +1,4 @@
 from chalice import Chalice
-from chalicelib import storage_service
-from chalicelib import s3_readfile_service
 from chalicelib import translation_service
 from chalicelib import polly_service
 from chalicelib.CentbotModel import chatbotCent_processing
@@ -21,9 +19,6 @@ app.debug = True
 #####
 # services initialization
 #####
-storage_location = 'contentcen301166925.aws.ai'
-storage_service = storage_service.StorageService(storage_location)
-s3_readfile_service = s3_readfile_service.S3ReadFileService(storage_service)
 translation_service = translation_service.TranslationService()
 polly_service = polly_service.PollyService()
 

@@ -19,7 +19,7 @@
  cd Capabilities/
  ```
  ```console
- chalice local
+ chalice local --no-autoreload
  ```
 
 ## Test backnned using api platform

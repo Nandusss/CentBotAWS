@@ -59,25 +59,25 @@
   
   targetLanguage should be in the following list
   
-  ```
-  {
-   supportedTargetLanguageList : [
-        'en',
-        'es',
-        'fr',
-        'de',
-        'it',
-        'pt',
-        'nl',
-        'ru',
-        'ja',
-        'ko',
-        'zh',
-        'ar',
-        'hi',
-        'tr'
+  ```json
+{
+ "supportedTargetLanguageList": [
+         "en",
+         "es",
+         "fr",
+         "de",
+         "it",
+         "pt",
+         "nl",
+         "ru",
+         "ja",
+         "ko",
+         "zh",
+         "ar",
+         "hi",
+         "tr"
       ]
-  }
+}
   ```
 
 

@@ -1,16 +1,27 @@
 import nltk
 from nltk.stem import WordNetLemmatizer
+import os
 lemmatizer = WordNetLemmatizer()
 import pickle
 import numpy as np
 
 from keras.models import load_model
-model = load_model('chatbot_model.h5')
+
+# define the files path as the location of current file
+file_path = os.path.dirname(os.path.realpath(__file__))
+
+model_path = os.path.join(file_path, 'chatbot_model.h5')
+intents_path = os.path.join(file_path, 'chatCent_intents.json')
+words_path = os.path.join(file_path, 'words.pkl')
+classes_path = os.path.join(file_path, 'classes.pkl')
+
+
+model = load_model(model_path)
 import json
 import random
-intents = json.loads(open('chatCent_intents.json', encoding='utf-8').read())
-words = pickle.load(open('words.pkl','rb'))
-classes = pickle.load(open('classes.pkl','rb'))
+intents = json.loads(open(intents_path, encoding='utf-8').read())
+words = pickle.load(open(words_path,'rb'))
+classes = pickle.load(open(classes_path,'rb'))
 
 
 def clean_up_sentence(sentence):

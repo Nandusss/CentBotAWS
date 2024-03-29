@@ -14,7 +14,7 @@ class TranslationService:
             )
 
             translation = {
-                'translatedText': response['TranslatedText'],
+                'text': response['TranslatedText'],
                 'sourceLanguage': response['SourceLanguageCode'],
                 'targetLanguage': response['TargetLanguageCode']
             }

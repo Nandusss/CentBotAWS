@@ -5,11 +5,12 @@ class PollyService:
     def __init__(self):
         self.client = boto3.client('polly')
 
-    def create_audio(self, text, voice_id='Joanna', output_path='output.mp3'):
+    def create_audio(self, text, voice_id='Joanna', language_code='en-US', output_path='output.mp3'):
         try:
             response = self.client.synthesize_speech(
                 Text=text,
                 VoiceId=voice_id,
+                LanguageCode=language_code,
                 OutputFormat='mp3'
             )
 

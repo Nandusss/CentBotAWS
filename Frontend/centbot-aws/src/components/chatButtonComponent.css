@@ -1,0 +1,25 @@
+/* chatButtonComponent.css */
+
+.chat-button {
+    /* Define the styles for the chat button */
+    background: none;
+    border: none;
+}
+
+.chat-button:hover {
+    /* Define the styles for the chat button on hover */
+}
+
+.chat-button:focus {
+    /* Define the styles for the chat button when focused */
+}
+
+.chat-box {
+    display: none;
+    position: fixed;
+    width: 300px;
+    height: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}

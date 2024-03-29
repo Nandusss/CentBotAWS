@@ -3,9 +3,14 @@ from chalicelib import storage_service
 from chalicelib import s3_readfile_service
 from chalicelib import translation_service
 from chalicelib import polly_service
+from chalicelib.CentbotModel import chatbotCent_processing
+
 
 import base64
 import json
+import logging
+import json
+
 
 
 #####
@@ -27,6 +32,20 @@ polly_service = polly_service.PollyService()
 #####
 # RESTful endpoints
 #####
+
+# Endpoint to get the text response from the CentBot
+@app.route('/chat/centbot/{chat_text}', methods=['POST'], cors=True)
+def chatbotResponse(chat_text):
+    logging.info("Hello: %s", app.current_request.method)
+    if app.current_request.method == 'POST':
+        the_question = app.current_request.json_body['question']
+        logging.info("Received question: %s", the_question)  # Log the question
+
+        response = chatbotCent_processing.chatbot_response(the_question)
+        logging.info("Generated response: %s", response)  # Log the response
+
+    return {"response": response}
+
 @app.route('/files', methods = ['POST'], cors = True)
 def upload_files():
     """processes file upload and saves file to storage service"""

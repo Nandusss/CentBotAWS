@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from '../logo.svg';
-import './App.css';
+import './homePage.css';
 
-function Home() {
+function HomePage() {
   return (
     <div className="Home">
       <header className="Home-header">
@@ -23,4 +23,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

@@ -16,7 +16,7 @@
  pipenv install
  ```
  after that go to Capabilies folder and run chalice local
- ```consolse
+ ```console
  cd Capabilities/
  ```
  ```console

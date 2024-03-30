@@ -1,4 +1,4 @@
-from chalice import Chalice
+from chalice import Chalice, Response
 from chalicelib import translation_service
 from chalicelib import polly_service
 from chalicelib.CentbotModel import chatbotCent_processing
@@ -76,35 +76,50 @@ def language_voice(language):
 # Endpoint to get the text response from the CentBot
 @app.route('/chat/centbot', methods=['POST'], cors=True)
 def chatbotResponse():
-    request_data = json.loads(app.current_request.raw_body)
-    if app.current_request.method == 'POST':
-        the_question = request_data.get('question', "")
-        sourceLanguage = request_data.get('sourceLanguage', 'en')
-        targetLanguage = request_data.get('targetLanguage', 'en')
-        audio_needed = request_data.get('audioNeeded', False)
+    try:
+        request_data = json.loads(app.current_request.raw_body)
+        if app.current_request.method == 'POST':
+            the_question = request_data.get('question', "")
+            sourceLanguage = request_data.get('sourceLanguage', 'en')
+            targetLanguage = request_data.get('targetLanguage', 'en')
+            audio_needed = request_data.get('audioNeeded', False)
 
-        # Check if the source language is not English or target language is supported as per the language code
-        if sourceLanguage != 'en' or targetLanguage not in language_code:
-            return {"error": "Unsupported language pair"}
-        else:
-            # check if the question is empty
-            if the_question == "":
-                return {"error": "Empty question"}
+            # Check if the source language is not English or target language is supported as per the language code
+            if sourceLanguage != 'en' or targetLanguage not in language_code:
+                return Response(
+                    body={"error": "Unsupported language pair"},
+                    status_code=400,
+                    headers={'Content-Type': 'application/json'}
+                )
             else:
-                response_from_bot = chatbotCent_processing.chatbot_response(the_question)
-
-                # Translate the response to the specified language
-                if targetLanguage != 'en':
-                    response = translation_service.translate_text(text=response_from_bot, target_language=targetLanguage)
+                # check if the question is empty
+                if the_question == "":
+                    return Response(
+                        body={"error": "Empty question"},
+                        status_code=400,
+                        headers={'Content-Type': 'application/json'}
+                    )
                 else:
-                    response = {"answer": response_from_bot, "sourceLanguage": 'en', "targetLanguage": 'en'}
+                    response_from_bot = chatbotCent_processing.chatbot_response(the_question)
 
-                # Generate audio for the translated text
-                if audio_needed:
-                    audio_path = polly_service.create_audio(text=response.get("answer"), voice_id=language_voice(targetLanguage), language_code=equivalent_language_code(targetLanguage))
-                    response['audioPath'] = audio_path
+                    # Translate the response to the specified language
+                    if targetLanguage != 'en':
+                        response = translation_service.translate_text(text=response_from_bot, target_language=targetLanguage)
+                    else:
+                        response = {"answer": response_from_bot, "sourceLanguage": 'en', "targetLanguage": 'en'}
 
-                return response
+                    # Generate audio for the translated text
+                    if audio_needed:
+                        audio_path = polly_service.create_audio(text=response.get("answer"), voice_id=language_voice(targetLanguage), language_code=equivalent_language_code(targetLanguage))
+                        response['audioPath'] = audio_path
+
+                    return response
+    except Exception as e:
+        return Response(
+            body={"error": str(e)},
+            status_code=500,
+            headers={'Content-Type': 'application/json'}
+        )
 
 
 if __name__ == '__main__':

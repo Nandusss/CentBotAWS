@@ -97,11 +97,11 @@ def chatbotResponse():
                 if targetLanguage != 'en':
                     response = translation_service.translate_text(text=response_from_bot, target_language=targetLanguage)
                 else:
-                    response = {"text": response_from_bot, "sourceLanguage": 'en', "targetLanguage": 'en'}
+                    response = {"answer": response_from_bot, "sourceLanguage": 'en', "targetLanguage": 'en'}
 
                 # Generate audio for the translated text
                 if audio_needed:
-                    audio_path = polly_service.create_audio(text=response.get("text"), voice_id=language_voice(targetLanguage), language_code=equivalent_language_code(targetLanguage))
+                    audio_path = polly_service.create_audio(text=response.get("answer"), voice_id=language_voice(targetLanguage), language_code=equivalent_language_code(targetLanguage))
                     response['audioPath'] = audio_path
 
                 return response

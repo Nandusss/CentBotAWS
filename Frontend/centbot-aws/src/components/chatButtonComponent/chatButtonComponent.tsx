@@ -42,7 +42,7 @@ function ChatButtonComponent() {
         });
 
         const data = await response.json();
-        setMessages([...newMessages, { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: data.text }]);
+        setMessages([...newMessages, { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: data.answer }]);
         setQuestion('');
     };
     

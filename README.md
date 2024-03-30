@@ -83,7 +83,7 @@
 
   text cannot be empty
 
-#Frontend
+# Frontend
 ### How to run frontend in local host
  from the directory where the CentBotAWS is cloned open Frontend/CentbotAWS directory
  ```console

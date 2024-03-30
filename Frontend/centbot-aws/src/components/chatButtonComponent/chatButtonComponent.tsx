@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
+import Switch from "react-switch";
 import './chatButtonComponent.css';
 import chatButtonIcon from '../../assets/chatButtonIcon.png';
 import config from '../../config/globalconfig.json';
 import MessageItemComponent from '../messagePropComponent/messageItemComponent';
 import botIcon from '../../assets/chatButtonIcon.png';
 import userIcon from '../../assets/userIcon.png';
+import audioNeededIcon from '../../assets/audioNeededIcon.png';
+import audioIcon from '../../assets/audioIcon.webp';
 
 // This component is used to display the chat button and chat box
 function ChatButtonComponent() {
     const [isExpanded, setIsExpanded] = useState(false);
     const [question, setQuestion] = useState('');
+    const [sourceLanguage, setSourceLanguage] = useState('en');
+    const [targetLanguage, setTargetLanguage] = useState('en');
+    const [audioNeeded, setAudioNeeded] = useState(false);
     const [messages, setMessages] = useState([
-        { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: 'Hi, how can I help you?' },
+        { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: 'Hi, how can I help you?', audioFileName: ''},
     ]);
     const url = config.backendChatPath;
 
@@ -25,11 +31,21 @@ function ChatButtonComponent() {
         setQuestion(event.target.value);
     };
 
+    // This function is used to handle the language select dropdown change
+    const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setTargetLanguage(event.target.value);
+    };
+
+    // This function is used to handle the audio switch change
+    const handleAudioChange = (checked: boolean) => {
+        setAudioNeeded(checked);
+    };
+
     // This function is used to handle the form submission
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const newMessages = [...messages, { username: 'Me', profilePic: <img src={userIcon} alt="Me" />, message: question }];
+        const newMessages = [...messages, { username: 'Me', profilePic: <img src={userIcon} alt="Me" />, message: question, audioFileName: ''}];
         
         setMessages(newMessages);
 
@@ -38,11 +54,11 @@ function ChatButtonComponent() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ question }),
+            body: JSON.stringify({ question: question, sourceLanguage: sourceLanguage, targetLanguage: targetLanguage, audioNeeded: audioNeeded}),
         });
 
         const data = await response.json();
-        setMessages([...newMessages, { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: data.answer }]);
+        setMessages([...newMessages, { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: data.answer, audioFileName: data.audioFileName}]);
         setQuestion('');
     };
     
@@ -56,9 +72,18 @@ function ChatButtonComponent() {
                 <div className="chat-box">
                     <div className='chatbox-title-area'>
                         CentBotAWS
+                        <div className='audio-switch-area'>
+                            <img src={audioNeededIcon} alt="Audio Icon" id='audioLabelIcon'></img>
+                            <Switch 
+                                onChange={handleAudioChange} 
+                                checked={audioNeeded}
+                                id = 'audio-switch'
+                            />
+                        </div>
                     <button onClick={() => setIsExpanded(false)} className="close-button">X</button>
                     </div>
 
+                    {/* This is the chat message area */}
                     <div className='chatbox-message-area'>
                         {messages.map((message, index) => (
                             <MessageItemComponent
@@ -66,11 +91,25 @@ function ChatButtonComponent() {
                                 username={message.username}
                                 profilePic={message.profilePic}
                                 message={message.message}
+                                audioFileName={message.audioFileName}
                             />
                         ))}
                     </div>
                     
+                    {/* This is the form for the chat input */}
                     <form onSubmit={handleSubmit} className='chat-form'>
+                        {/* This is the language select dropdown */}
+                        <select
+                            value={targetLanguage}
+                            onChange={handleLanguageChange}
+                            id='language-select'
+                        >
+                            {config.supportedTargetLanguageList.map((language, index) => (
+                                <option key={index} value={language}>{language}</option>
+                            ))}
+                        </select>
+
+                        {/* This is the chat input */}
                         <input
                             type="text"
                             value={question}

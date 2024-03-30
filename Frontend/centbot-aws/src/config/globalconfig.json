@@ -1,5 +1,7 @@
 {
     "backendPort": 8000,
-    "backendUrl": "http://127.0.0.1/",
-    "backendChatPath": "http://127.0.0.1:8000/chat/centbot"
+    "backendUrl": "http://127.0.0.1",
+    "backendChatPath": "http://127.0.0.1:8000/chat/centbot",
+    "backendAudioPath": "chat/audio",
+    "supportedTargetLanguageList": ["en", "es", "fr", "de", "it", "pt", "nl", "ru", "ja", "ko", "zh", "ar", "hi", "tr"]
 }

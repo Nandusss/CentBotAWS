@@ -1,3 +1,4 @@
+import os
 from chalice import Chalice, Response
 from chalicelib import translation_service
 from chalicelib import polly_service
@@ -21,6 +22,8 @@ app.debug = True
 #####
 translation_service = translation_service.TranslationService()
 polly_service = polly_service.PollyService()
+
+BASEPATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audios')
 
 ##### Helper functions for the services #####
 language_code = {
@@ -110,10 +113,50 @@ def chatbotResponse():
 
                     # Generate audio for the translated text
                     if audio_needed:
-                        audio_path = polly_service.create_audio(text=response.get("answer"), voice_id=language_voice(targetLanguage), language_code=equivalent_language_code(targetLanguage))
-                        response['audioPath'] = audio_path
+                        audio_file_name = polly_service.create_audio(text=response.get("answer"), voice_id=language_voice(targetLanguage), language_code=equivalent_language_code(targetLanguage), output_path=BASEPATH)
+                        response['audioFileName'] = audio_file_name
+                    
+                    # Add the audio file name to the response defaulting to empty string
+                    response['audioFileName'] = response.get('audioFileName', "")
 
                     return response
+    except Exception as e:
+        return Response(
+            body={"error": str(e)},
+            status_code=500,
+            headers={'Content-Type': 'application/json'}
+        )
+    
+# Endpoint to get the audio file blob
+@app.route('/chat/audio/{filename}', methods=['GET'], cors=True)
+def getAudioFileBlob(filename):
+    try:
+        if app.current_request.method == 'GET':
+            # Check if the path is empty
+            if filename == '':
+                return Response(
+                    body={"error": "no path provided"},
+                    status_code=400,
+                    headers={'Content-Type': 'application/json'}
+                )
+            else:
+                filepath = os.path.join(BASEPATH, filename)
+                # check if the path is valid
+                if not os.path.exists(filepath):
+                    return Response(
+                        body={"error": "invalid path"},
+                        status_code=400,
+                        headers={'Content-Type': 'application/json'}
+                    )
+                else:
+                    # return the file
+                    with open(filepath, 'rb') as file:
+                        file_content = file.read()
+                        return Response(
+                            body=file_content,
+                            status_code=200,
+                            headers={'Content-Type': 'application/octet-stream'}
+                        )
     except Exception as e:
         return Response(
             body={"error": str(e)},

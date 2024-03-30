@@ -23,6 +23,13 @@
     word-break: break-word;
 }
 
+.message-item #audio {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    align-self: flex-end; /* Add this line */
+}
+
 /* Styles for messages from 'Me' */
 .message-item.Me {
     background-color: #d1e7dd;

@@ -17,8 +17,8 @@
 
 .chat-box {
     position: fixed;
-    width: 300px;
-    height: 400px;
+    width: 400px;
+    height: 500px;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -30,13 +30,45 @@
     position: relative;
     width: 100%;
     height: 40px;
-    background: #4CAF50;
+    background: #464646;
     color: white;
     text-align: center;
     line-height: 40px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     font-weight: bold;
+}
+
+.chat-box .chatbox-title-area .audio-switch-area {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 50px;
+    height: 25px;
+    background: none;
+    border: none;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.chat-box .chatbox-title-area .audio-switch-area #audioLabelIcon {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    background: none;
+    border: none;
+}
+
+.chat-box .chatbox-title-area .audio-switch-area #audio-switch {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+    background: none;
+    border: none;
 }
 
 .chat-box .chatbox-title-area .close-button {
@@ -47,7 +79,7 @@
     height: 25px;
     background: none;
     border: none;
-    color: red;
+    color: white;
 }
 
 .chat-box .chatbox-message-area {
@@ -70,8 +102,16 @@
     left: 10px;
 }
 
+.chat-box .chat-form #language-select {
+    width: 15%;
+    height: 40px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .chat-box .chat-form #chat-input {
-    width: 70%;
+    width: 55%;
     height: 30px;
     border: 1px solid #CCC;
     border-radius: 5px;
@@ -81,9 +121,10 @@
 .chat-box .chat-form #send-button {
     width: 20%;
     height: 40px;
-    background: #4CAF50;
+    background: #464646;
     color: white;
     border: none;
     border-radius: 5px;
     margin-left: 5px;
 }
+

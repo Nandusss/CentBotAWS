@@ -1,6 +1,6 @@
 import React from 'react';
 import './homePage.css';
-import ChatButtonComponent from '../components/chatButtonComponent';
+import ChatButtonComponent from '../components/chatButtonComponent/chatButtonComponent';
 
 function HomePage() {
   return (

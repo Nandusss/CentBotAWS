@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import './chatButtonComponent.css';
-import chatButtonIcon from '../assets/chatButtonIcon.png';
-import config from '../config/globalconfig.json';
+import chatButtonIcon from '../../assets/chatButtonIcon.png';
+import config from '../../config/globalconfig.json';
+import MessageItemComponent from '../messagePropComponent/messageItemComponent';
+import botIcon from '../../assets/chatButtonIcon.png';
+import userIcon from '../../assets/userIcon.png';
 
 function ChatButtonComponent() {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -28,6 +31,12 @@ function ChatButtonComponent() {
         setQuestion('');
     };
 
+    const messages = [
+        { username: 'Me', profilePic: <img src={userIcon} alt="Me" />, message: 'Hello!' },
+        { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: 'Hi, how can I help you?' },
+    ];
+    
+
     return (
         <div>
             <button onClick={handleButtonClick} className="chat-button">
@@ -41,7 +50,14 @@ function ChatButtonComponent() {
                     </div>
 
                     <div className='chatbox-message-area'>
-                        
+                        {messages.map((message, index) => (
+                            <MessageItemComponent
+                                key={index}
+                                username={message.username}
+                                profilePic={message.profilePic}
+                                message={message.message}
+                            />
+                        ))}
                     </div>
                     
                     <form onSubmit={handleSubmit} className='chat-form'>

@@ -1,0 +1,33 @@
+.message-item {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 80%;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+.message-item #profilepic img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.message-item #message {
+    margin-top: 5px;
+    color: #666;
+}
+
+/* Styles for messages from 'Me' */
+.message-item.Me {
+    background-color: #d1e7dd;
+    align-self: flex-end;
+}
+
+/* Styles for messages from 'CentBotAWS' */
+.message-item.CentBotAWS {
+    background-color: #f2f2f2;
+    align-self: flex-start;
+}

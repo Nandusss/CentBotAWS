@@ -10,14 +10,6 @@
     height: 80px;
 }
 
-.chat-button:hover {
-    /* Define the styles for the chat button on hover */
-}
-
-.chat-button:focus {
-    /* Define the styles for the chat button when focused */
-}
-
 .chat-button img {
     width: 100%;
     height: 100%;
@@ -56,6 +48,16 @@
     background: none;
     border: none;
     color: red;
+}
+
+.chat-box .chatbox-message-area {
+    position: relative;
+    width: 90%;
+    height: 320px;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .chat-box .chat-form {

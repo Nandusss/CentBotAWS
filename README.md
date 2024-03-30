@@ -23,7 +23,7 @@
  ```
 
 ## Test backnned using api platform
- To test the endpoint you can use api platforms like [hopscotch](https://hoppscotch.io/), [insomnia](https://insomnia.rest/) or [postman](https://www.postman.com/).
+ To test the endpoint use api platforms like [hopscotch](https://hoppscotch.io/), [insomnia](https://insomnia.rest/) or [postman](https://www.postman.com/) or [CURL](https://curl.se/).
 
  Using one of those api platform sent the json as body of the post request to localhost server. Most of the time it would be hosted at http://127.0.0.1:8000/ and the route is /chat/centbot.
 
@@ -82,4 +82,38 @@
 
 
   text cannot be empty
+
+#Frontend
+### How to run frontend in local host
+ from the directory where the CentBotAWS is cloned open Frontend/CentbotAWS directory
+ ```console
+ cd CentBotAWS/Frontend/centbot-aws
+ ```
+ then install npm libraries
+ ```console
+ npm install
+ ```
+
+ then build the files
+ ```console
+ npm run build
+ ```
+
+ after that install serve (Optional if already installed)
+ ```console
+ npm install -g serve
+ ```
+
+ then serve the build
+ ```console
+ serve -s build
+ ```
+
+ This should run the server in localhost port 3000 by default
+ ```
+ http://127.0.0.1:3000/home
+ ```
+
+ open the link in your favorite browser
+
 

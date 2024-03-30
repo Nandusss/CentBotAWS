@@ -23,7 +23,7 @@
  ```
 
 ## Test backnned using api platform
- To test the endpoint use api platforms like [hopscotch](https://hoppscotch.io/), [insomnia](https://insomnia.rest/) or [postman](https://www.postman.com/) or [CURL](https://curl.se/).
+ To test the endpoint use api platforms like [hopscotch](https://hoppscotch.io/), [insomnia](https://insomnia.rest/), [postman](https://www.postman.com/) or [CURL](https://curl.se/).
 
  Using one of those api platform sent the json as body of the post request to localhost server. Most of the time it would be hosted at http://127.0.0.1:8000/ and the route is /chat/centbot.
 

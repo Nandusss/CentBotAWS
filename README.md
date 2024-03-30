@@ -48,7 +48,7 @@
     "answer"        : "Bonjour ! Je suis CentBot, comment puis-je vous aider ?",
     "sourceLanguage": "en",
     "targetLanguage": "fr",
-    "audioPath"     : "/home/nandu/CentBotAWS/Backend/Capabilities/output.mp3"
+    "audioFileName" : "Celine_fr-FR_1711787452.mp3"
  }
  ```
 

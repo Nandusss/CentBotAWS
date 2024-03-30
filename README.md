@@ -45,7 +45,7 @@
  and a response as following should be received
  ```json
  {
-    "text"          : "Bonjour ! Je suis CentBot, comment puis-je vous aider ?",
+    "answer"        : "Bonjour ! Je suis CentBot, comment puis-je vous aider ?",
     "sourceLanguage": "en",
     "targetLanguage": "fr",
     "audioPath"     : "/home/nandu/CentBotAWS/Backend/Capabilities/output.mp3"

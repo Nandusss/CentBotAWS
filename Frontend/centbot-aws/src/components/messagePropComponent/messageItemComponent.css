@@ -18,6 +18,9 @@
 .message-item #message {
     margin-top: 5px;
     color: #666;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 /* Styles for messages from 'Me' */

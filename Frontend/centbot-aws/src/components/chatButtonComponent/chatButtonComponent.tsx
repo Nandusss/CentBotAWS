@@ -6,35 +6,45 @@ import MessageItemComponent from '../messagePropComponent/messageItemComponent';
 import botIcon from '../../assets/chatButtonIcon.png';
 import userIcon from '../../assets/userIcon.png';
 
+// This component is used to display the chat button and chat box
 function ChatButtonComponent() {
     const [isExpanded, setIsExpanded] = useState(false);
     const [question, setQuestion] = useState('');
+    const [messages, setMessages] = useState([
+        { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: 'Hi, how can I help you?' },
+    ]);
     const url = config.backendChatPath;
 
+    // This function is used to handle the button click
     const handleButtonClick = () => {
         setIsExpanded(!isExpanded);
     };
 
+    // This function is used to handle the input change
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setQuestion(event.target.value);
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    // This function is used to handle the form submission
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        fetch(url, {
+
+        const newMessages = [...messages, { username: 'Me', profilePic: <img src={userIcon} alt="Me" />, message: question }];
+        
+        setMessages(newMessages);
+
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ question }),
         });
+
+        const data = await response.json();
+        setMessages([...newMessages, { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: data.text }]);
         setQuestion('');
     };
-
-    const messages = [
-        { username: 'Me', profilePic: <img src={userIcon} alt="Me" />, message: 'Hello!' },
-        { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: 'Hi, how can I help you?' },
-    ];
     
 
     return (

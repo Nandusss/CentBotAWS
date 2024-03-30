@@ -7,6 +7,7 @@ interface MessageItemProps {
     message: string;
 }
 
+// This component is used to display a message item
 function MessageItemComponent(props: MessageItemProps) {
     const { username, message, profilePic } = props;
 

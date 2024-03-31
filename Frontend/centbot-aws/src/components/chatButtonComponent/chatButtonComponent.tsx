@@ -71,7 +71,7 @@ function ChatButtonComponent() {
             {isExpanded && (
                 <div className="chat-box">
                     <div className='chatbox-title-area'>
-                        CentBotAWS
+                        CentChat
                         <div className='audio-switch-area'>
                             <img src={audioNeededIcon} alt="Audio Icon" id='audioLabelIcon'></img>
                             <Switch 

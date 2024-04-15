@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { FcSpeaker } from "react-icons/fc";
 import config from '../../config/globalconfig.json';
 import './messageItemComponent.css';
 
@@ -33,14 +34,27 @@ function MessageItemComponent(props: MessageItemProps) {
         }
     };
 
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    const playAudio = () => {
+        if (audioRef.current) {
+            audioRef.current.play(); // Play the audio when the button is clicked
+        }
+    };
+
     return (
         <div className={`message-item ${username}`}>
             <div id='profilepic'>{profilePic}</div>
             <p id='message'>{message}</p>
             {audioFile ? (
-                <audio controls id='audio'>
-                    <source src={audioFile} type="audio/mpeg" />
-                </audio>
+                <div>
+                    <button onClick={playAudio}>
+                        <FcSpeaker /> {/* Display the speaker icon */}
+                    </button>
+                    <audio ref={audioRef} id='audio'>
+                        <source src={audioFile} type="audio/mpeg" />
+                    </audio>
+                </div>
             ) : null}
         </div>
     );

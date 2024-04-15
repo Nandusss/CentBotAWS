@@ -5,10 +5,9 @@ from chalicelib import polly_service
 from chalicelib.CentbotModel import chatbotCent_processing
 
 
-import base64
+
 import json
-import logging
-import json
+
 
 
 #####

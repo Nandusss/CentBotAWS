@@ -55,11 +55,17 @@ function ChatButtonComponent() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ question: question, sourceLanguage: sourceLanguage, targetLanguage: targetLanguage, audioNeeded: audioNeeded}),
+        }).then(async (response) => {
+            if(response.status !== 200) {
+                throw new Error('Failed to fetch the data');
+            }
+            const data = await response.json();
+            setMessages([...newMessages, { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: data.answer, audioFileName: data.audioFileName}]);
+            setQuestion('');
+        }).catch((error) => {
+            setMessages([...newMessages, { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: 'Something went wrong! please try again with a different message!!', audioFileName: ''}]);
+            setQuestion('');
         });
-
-        const data = await response.json();
-        setMessages([...newMessages, { username: 'CentBotAWS', profilePic: <img src={botIcon} alt="CentBotAWS" />, message: data.answer, audioFileName: data.audioFileName}]);
-        setQuestion('');
     };
     
 
